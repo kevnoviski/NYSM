@@ -10,7 +10,7 @@ using NYSM.Data;
 namespace NYSM.Migrations
 {
     [DbContext(typeof(NYSMContext))]
-    [Migration("20210308011611_InitialCreate")]
+    [Migration("20210308150843_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,11 @@ namespace NYSM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -176,8 +181,8 @@ namespace NYSM.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
