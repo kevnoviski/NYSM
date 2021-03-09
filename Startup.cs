@@ -39,9 +39,8 @@ namespace NYSM
             services.AddScoped<INYSMRepo,UserRepo>();
             services.AddScoped<IAppFileRepo,AppFileRepo>();
             services.AddScoped<IReadSpeedRepo,ReadSpeedRepo>();
-            
-    
-            
+            services.AddScoped<IQuestionRepo,QuestionRepo>();
+             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
             services.AddSwaggerGen(c =>

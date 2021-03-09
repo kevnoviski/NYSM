@@ -52,9 +52,7 @@ namespace NYSM.Controllers
                 
                 var appFileModel = _mapper.Map<AppFile>(objectCreateAlterDto);
 
-                char[] delimiters = new char[] {' ', '\r', '\n','\t' };
-
-                appFileModel.WordCount =objectCreateAlterDto.Content.Split(delimiters,StringSplitOptions.RemoveEmptyEntries).Length;  
+                appFileModel.WordCount =NumberOfWords(objectCreateAlterDto.Content);
                 
                 appFileModel.LineCount=0;
 
@@ -64,7 +62,7 @@ namespace NYSM.Controllers
 
                 return CreatedAtRoute(/*nome da rota GET*/nameof(GetAppFileById),
                  /*valor para passar no GET*/new {Id = appFileModel.Id},
-                 /*body*/objectCreateAlterDto);    
+                 /*body*/appFileModel);    
             }
             catch(Exception)
             {
@@ -72,19 +70,24 @@ namespace NYSM.Controllers
             }
         }
 
+        private int NumberOfWords(string content)
+        {
+            return content.Split(new char[] {' ', '\r', '\n','\t' },StringSplitOptions.RemoveEmptyEntries).Length;  
+        }
+
         //PUT appfile/{id} 
         [HttpPut("{id:int}")]
         public ActionResult UpdateAppFile(int id, AppFileCreateAlterDto objectCreateAlterDto)
         {
             // filtra do banco de dados o registro que esta sendo atualizado
-            var appFilefromRepo = _repository.GetObjectById(id);
+            var appFilefromRepo =(AppFile) _repository.GetObjectById(id);
             if(appFilefromRepo == null)
             {
                 return NotFound();
             }
             
             _mapper.Map(objectCreateAlterDto,appFilefromRepo);
-
+            appFilefromRepo.WordCount = NumberOfWords(appFilefromRepo.Content);
             
             try{
                 _repository.BeginTransaction();

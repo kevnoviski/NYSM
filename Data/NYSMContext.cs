@@ -7,7 +7,7 @@ namespace NYSM.Data
     {
         public NYSMContext(DbContextOptions<NYSMContext> opt) : base(opt)
         {
-            
+
         }
         public DbSet<User> users {get ; set;}
         public DbSet<AppFile> appFiles {get ; set;}
