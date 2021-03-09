@@ -37,6 +37,11 @@ namespace NYSM
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication",null);
 
             services.AddScoped<INYSMRepo,UserRepo>();
+            services.AddScoped<IAppFileRepo,AppFileRepo>();
+            services.AddScoped<IReadSpeedRepo,ReadSpeedRepo>();
+            
+    
+            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -60,7 +65,7 @@ namespace NYSM
 
             app.UseRouting();
 
-            app.UseAuthentication();    
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

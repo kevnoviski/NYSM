@@ -13,6 +13,17 @@ namespace NYSM.Data
         {
             _context = context;
         }
+
+        public void BeginTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
         public void CreateObject(object newObject)
         {
             if(newObject != null)
@@ -33,7 +44,12 @@ namespace NYSM.Data
 
         public object GetObjectById(int id)
         {
-            return _context.users.FirstOrDefault(x => x.Id == id);
+            return (User)_context.users.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Rollback()
+        {
+            throw new NotImplementedException();
         }
 
         public bool SaveChanges()

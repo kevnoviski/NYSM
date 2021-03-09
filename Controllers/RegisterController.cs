@@ -21,7 +21,7 @@ namespace NYSM.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-
+        
         [HttpPost]
         public ActionResult<User> RegisterUser(User user)
         {
